@@ -31,3 +31,23 @@ def convert(data):
     return new_data
 training_set= convert(training_set)
 test_set= convert(test_set)
+#converting the training_set and test_set into torch tensors
+training_set= torch.FloatTensor(training_set)
+test_set= torch.FloatTensor(test_set)
+
+#convert the ratings into binary format(0 or 1)
+training_set[training_set ==0]= -1
+training_set[training_set ==1]= 0
+training_set[training_set ==2]= 0
+training_set[training_set >=3]= 1
+test_set[test_set ==0]= -1
+test_set[test_set ==1]= 0
+test_set[test_set ==2]= 0
+test_set[test_set >=3]= 1
+
+#creating the archietecture of the neural network
+class RBM():
+    def __init__(self, nv, nh):
+            self.W= torch.randn(nh,nv)
+            self.a= torch.randn(1, nh)
+            self.b= torch.randn(1, nv)
