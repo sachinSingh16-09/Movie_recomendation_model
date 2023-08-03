@@ -1,1 +1,1 @@
-# Boltzmann_machine
+# Boltzmann_machine(development in progress)
