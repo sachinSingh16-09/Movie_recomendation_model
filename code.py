@@ -65,3 +65,7 @@ class RBM():
         self.W += torch.nm(v0.t(), ph0) - torch.nm(vk.t(), phk)
         self.b += torch.nm((v0-vk),0)
         self.a += torch.nm((ph0-phk),0)
+nv= len(training_set[0])
+nh= 100
+batch_size= 100
+rbm= RBM(nv, nh)
