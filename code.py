@@ -51,3 +51,17 @@ class RBM():
             self.W= torch.randn(nh,nv)
             self.a= torch.randn(1, nh)
             self.b= torch.randn(1, nv)
+    def sample_h(self,x):
+        wx= torch.mm(x, self.W.t())
+        activation= wx + self.a.expand_as(wx)
+        p_h_given_v = torch.sigmoid(activation)
+        return p_h_given_v, torch.bernoulli(p_h_given_v)
+    def sample_v(self,y):
+        wy= torch.mm(y, self.W)
+        activation= wy + self.b.expand_as(wy)
+        p_v_given_h = torch.sigmoid(activation)
+        return p_v_given_h, torch.bernoulli(p_v_given_h)
+    def train(self, v0, vk, ph0, phk):
+        self.W += torch.nm(v0.t(), ph0) - torch.nm(vk.t(), phk)
+        self.b += torch.nm((v0-vk),0)
+        self.a += torch.nm((ph0-phk),0)
