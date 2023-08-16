@@ -52,3 +52,6 @@ class SAE(nn.Module):
         x = self.activation(self.fc3(x))
         x = self.fc4(x)
         return x
+sae= SAE()
+criterion = nn.MSELoss()
+optimizer= optim.RMSprop(sae.parameters(), lr= 0.01, weight_decay=0.5)
